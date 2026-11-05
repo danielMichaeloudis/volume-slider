@@ -1,0 +1,26 @@
+[package]
+name = "volume-slider"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+directories = "6.0.0"
+gdk = {version = "0.11.5", package = "gdk4"}
+gtk4 = "0.11.5"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+
+[profile.release]
+# Optimize for size rather than speed
+opt-level = "z"          # "z" aggressively minimizes size; "s" is another small alternative
+
+# Enable Link-Time Optimization (LTO) to strip dead code globally
+lto = true               # Or use "thin" for faster compile times
+
+# Use a single codegen unit so the optimizer sees all code together
+codegen-units = 1        # Increases optimization power
+
+# Automatically strip debug symbols and names from the binary
+strip = true             # Removes symbols without breaking functionality
+
